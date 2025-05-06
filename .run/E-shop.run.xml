@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="E-shop" type="Application" factoryName="Application">
+    <option name="envFilePaths">
+      <option value="$PROJECT_DIR$/backend/e-shop/.env" />
+    </option>
+    <option name="MAIN_CLASS_NAME" value="com.example.e_shop.EShopApplication" />
+    <module name="e-shop" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
