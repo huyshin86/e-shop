@@ -1,4 +1,4 @@
-package com.example.e_shop.infrastructure.config;
+package com.example.e_shop.infrastructure.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,11 +20,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity https) throws Exception {
         https
             .csrf(csrf -> csrf.disable())
-            .headers(headers -> headers
-                .frameOptions(frameOptions -> frameOptions.disable()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/home/**", "/search/**", "/login").permitAll()
+                .requestMatchers("/home/**", "/search/**").permitAll()
                 .anyRequest().authenticated())
+            .formLogin(form -> form
+                .loginPage("/login")
+                .permitAll())
             .httpBasic(Customizer.withDefaults());
 
         return https.build();
@@ -46,4 +47,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
