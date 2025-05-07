@@ -6,10 +6,12 @@ import lombok.Getter;
 
 @Getter
 public class Role {
-    private Long id;
+    private final Long id;
     private String name;
 
-    public Role() {
+    // For ORM
+    protected Role() {
+        this.id = null;
     }
 
     // For creating new roles
@@ -17,7 +19,8 @@ public class Role {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Role name cannot be null or empty");
         }
-        this.name = name.toLowerCase(); // Normalize to lowercase
+        this.id = null; // ID will be set by the database
+        this.name = normalizeName(name); // Normalize to "ROLE_" prefix
     }
 
     // Domain Behaviors
@@ -25,10 +28,16 @@ public class Role {
         if (newName == null || newName.trim().isEmpty()) {
             throw new IllegalArgumentException("New name cannot be null or empty");
         }
-        if (newName.equals(this.name)) {
+        String normalizedName = normalizeName(newName);
+        if (normalizedName.equals(this.name)) {
             throw new IllegalArgumentException("New name cannot be the same as the current name");
         }
-        this.name = newName.toLowerCase();
+        this.name = normalizedName;
+    }
+
+    private String normalizeName(String name){
+        String cleanName = name.trim().toUpperCase();
+        return cleanName.startsWith("ROLE_") ? cleanName : "ROLE_" + cleanName;
     }
 
     @Override

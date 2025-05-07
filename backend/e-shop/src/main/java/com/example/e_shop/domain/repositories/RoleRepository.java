@@ -6,5 +6,8 @@ import com.example.e_shop.domain.entities.Role;
 
 public interface RoleRepository {
     Optional<Role> findByName(String name);
+
+    boolean existsByName(String name);
+
     Role save(Role role);
 }

@@ -8,7 +8,9 @@ public interface UserRepository {
 
     Optional<User> findByEmail(String email);
 
-    void save(User user);
+    boolean existsByEmail(String email);
+
+    User save(User user);
 
     void delete(User user);
 }
